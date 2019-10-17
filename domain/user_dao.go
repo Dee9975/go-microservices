@@ -1,8 +1,8 @@
 package domain
 
 import (
-	"WebServer/mvc/utils"
 	"fmt"
+	"go-microservices/utils"
 	"net/http"
 )
 

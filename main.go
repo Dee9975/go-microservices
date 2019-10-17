@@ -1,6 +1,6 @@
 package main
 
-import "WebServer/mvc/app"
+import "go-microservices/app"
 
 func main() {
 	app.StartApp()

@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"WebServer/mvc/services"
-	"WebServer/mvc/utils"
 	"encoding/json"
+	"go-microservices/services"
+	"go-microservices/utils"
 	"net/http"
 	"strconv"
 )
@@ -18,6 +18,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 		}
 		jsonValue, _ := json.Marshal(apiError)
 		w.WriteHeader(apiError.StatusCode)
+		w.Header().Set("Content-Type", "application/json")
 		w.Write(jsonValue)
 		return
 	}
@@ -25,11 +26,14 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 	user, apiError := services.GetUser(userId)
 	if apiError != nil {
 		jsonValue, _ := json.Marshal(apiError)
+		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(apiError.StatusCode)
 		w.Write(jsonValue)
 		return
 	}
 
 	jsonValue, _ := json.Marshal(user)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
 	w.Write(jsonValue)
 }
